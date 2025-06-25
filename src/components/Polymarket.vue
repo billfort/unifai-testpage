@@ -118,6 +118,7 @@ const createBuyTxn = async () => {
                 payload: {
                     tokenId: tokenId.value,
                     amount: amount.value,
+                    orderType: 'FAK',
                 }
             })
         })
@@ -210,6 +211,7 @@ const marketOrder = async () => {
         let od = data.data
         let orderData = od.orderData
         let typedData = od.typedData
+        let orderType = od.orderType || OrderType.FAK; // FOK
 
         // sign tx by metamask
         const signature = await window.ethereum.request({
@@ -227,7 +229,7 @@ const marketOrder = async () => {
         const creds = await clobClient.deriveApiKey()
 
         const clobClient2 = new ClobClient(clobUrl, chainId, signer, creds)
-        const res = await clobClient2.postOrder(orderData, OrderType.FAK);
+        const res = await clobClient2.postOrder(orderData, orderType); // FOK
 
         console.log('res: ', res)
         if (res.error) { // order is not success filled.
@@ -256,6 +258,7 @@ const createSellTxn = async () => {
                 payload: {
                     tokenId: positions.value[positionIndex].asset,
                     size: positions.value[positionIndex].size,
+                    orderType: 'FAK',
                 }
             })
         })
