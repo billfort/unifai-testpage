@@ -3,9 +3,8 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-// import inject from '@rollup/plugin-inject'
-// import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { txBuilderUrl } from './src/config'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -35,20 +34,11 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
       '/txbuilder': {
-        target: 'http://localhost:8001/api/tx',
+        target: `${txBuilderUrl}`,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/txbuilder/, ''),
+        rewrite: (path) => path.replace(/^\/txbuilder/, '/api'),
       },
     },
   },
-  // build: {
-  //   rollupOptions: {
-  //     plugins: [
-  //       inject({
-  //         Buffer: ['buffer', 'Buffer'],
-  //       }),
-  //     ],
-  //   },
-  // },
 
 })

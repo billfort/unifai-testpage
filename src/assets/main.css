@@ -7,3 +7,88 @@
   font-weight: normal;
 }
 
+* {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 5px;
+}
+button:hover {
+  background-color: lightblue;
+  border-color: lightblue;
+}
+
+a {
+  padding-bottom: 5px;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #000;
+}
+
+a:hover {
+  color: green;
+  border-bottom: 1px solid green;
+}
+
+.info {
+  color: green;
+  font-size: small;
+  word-break: break-all;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+}
+
+.mask {
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+  position: fixed;
+  inset: 0px;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}

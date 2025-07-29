@@ -10,11 +10,17 @@
   },
   "dependencies": {
     "@polymarket/clob-client": "^4.18.0",
+    "@wagmi/core": "^2.17.3",
+    "@wagmi/vue": "^0.1.22",
     "buffer": "^6.0.3",
     "crypto-js": "^4.2.0",
-    "ethers": "^6.14.4",
+    "ethers": "^6.15.0",
     "events": "^3.3.0",
-    "vue": "^3.5.13"
+    "tsx": "^4.20.3",
+    "viem": "^2.31.4",
+    "vue": "^3.5.13",
+    "vue-router": "4",
+    "wagmi": "^2.15.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",

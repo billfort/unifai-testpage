@@ -2,6 +2,7 @@
     <div class="col" style="border-bottom: 10px solid lightgray; padding-bottom: 20px;">
         <button @click="connWallet">connect wallet</button>
         <p v-if="walletAddress" style="color: blue; font-size: small;">address: {{ walletAddress }}</p>
+        <button @click="getApiKey">get api key</button>
     </div>
 
     <div class="col" style="border-bottom: 10px solid lightgray; padding-bottom: 20px;">
@@ -227,6 +228,7 @@ const marketOrder = async () => {
 
         const clobClient = new ClobClient(clobUrl, chainId, signer)
         const creds = await clobClient.deriveApiKey()
+        console.log('creds: ', creds)
 
         const clobClient2 = new ClobClient(clobUrl, chainId, signer, creds)
         const res = await clobClient2.postOrder(orderData, orderType); // FOK
@@ -294,6 +296,23 @@ const buildSellTxn = async () => {
         console.error('tx/build: ', error)
     } finally {
         loading.value = false;
+    }
+}
+
+const getApiKey = async () => {
+    try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        signer._signTypedData = signer.signTypedData
+        const clobClient = new ClobClient(clobUrl, chainId, signer)
+        const creds = await clobClient.deriveApiKey()
+        console.log('derivedcreds: ', creds)
+
+        const clobClient2 = new ClobClient(clobUrl, chainId, signer, creds)
+        const creds2 = await clobClient2.getApiKeys()
+        console.log('get creds: ', creds2)
+    } catch (error) {
+        console.error('get api key: ', error)
     }
 }
 
@@ -390,61 +409,4 @@ const getEvent = async () => {
 
 </script>
 
-<style scoped>
-.col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.row {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-* {
-    margin-top: 10px;
-    margin-right: 10px;
-}
-
-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-}
-
-.mask {
-    position: fixed;
-    inset: 0px;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.loader {
-    border: 16px solid #f3f3f3;
-    /* Light grey */
-    border-top: 16px solid #3498db;
-    /* Blue */
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 2s linear infinite;
-    position: fixed;
-    inset: 0px;
-    margin: auto;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-</style>
+<style scoped></style>
